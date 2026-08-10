@@ -12,7 +12,6 @@ function Dashboard(){
 
     function handleHamburger(){
         setIsMenuOpen(m => !m);
-        // console.log(isMenuOpen)
     }
 // Not important just for checking purposes
     // useEffect(() => {
