@@ -28,7 +28,7 @@ function Lform(){
             if (!response.ok){
                 throw new Error(data.message)
             }
-            console.log("Success from backend:", data);
+            // console.log("Success from backend:", data);
             setPassword('');
             setUserName('');
             navigate('/Dashboard');

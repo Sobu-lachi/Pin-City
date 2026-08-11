@@ -12,9 +12,14 @@ app.get('/', (req, res)=>{
 
 app.post('/', (req, res)=>{
     const {username, password} = req.body;
-    console.log(`Received Login Attempt: User=${username} Password=${password}`);
+    // console.log(`Received Login Attempt: User=${username} Password=${password}`);
 
     res.json({ message: 'Done' });
+})
+
+app.post('/Sform', (req, res)=>{
+    const {fName, lName, email, userName, password, confirmPassword} = req.body;
+    res.json({message:'Done'});
 })
 
 
