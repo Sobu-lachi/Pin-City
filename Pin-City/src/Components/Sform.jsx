@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios  from "axios";
 
 function Sform(){
     const navigate = useNavigate();
@@ -25,20 +26,10 @@ function Sform(){
         }
 
         try{
-            const response = await fetch('http://localhost:8000', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify({
-                    fName, lName, email, userName, password, confirmPassword
-                })
+            const response = await axios.post('http://localhost:8000', {
+                fName, lName, email, userName, password, confirmPassword
             })
-            const data = await response.json();
-            if (!response.ok){
-                throw new Error(data.message)
-            }
-            // console.log(data);
+            // console.log(response.data);
             setFname('');
             setLname('');
             setEmail('');

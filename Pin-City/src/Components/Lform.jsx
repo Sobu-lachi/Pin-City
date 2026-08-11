@@ -1,5 +1,6 @@
 import {Link, useNavigate} from 'react-router-dom'
 import { useState } from 'react';
+import axios from 'axios';
 
 function Lform(){
     const navigate = useNavigate();
@@ -15,19 +16,9 @@ function Lform(){
         }
 
         try{
-            const response = await fetch('http://localhost:8000', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username, password
-                })
-            });
-            const data = await response.json();
-            if (!response.ok){
-                throw new Error(data.message)
-            }
+            const response = await axios('http://localhost:8000', {
+                username, password
+            })
             // console.log("Success from backend:", data);
             setPassword('');
             setUserName('');
