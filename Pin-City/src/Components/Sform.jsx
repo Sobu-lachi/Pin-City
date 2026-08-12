@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios  from "axios";
+import { Link } from "react-router-dom";
 
 function Sform(){
     const navigate = useNavigate();
@@ -26,7 +27,7 @@ function Sform(){
         }
 
         try{
-            const response = await axios.post('http://localhost:8000', {
+            const response = await axios.post('http://localhost:8000/Sform', {
                 fName, lName, email, userName, password, confirmPassword
             })
             // console.log(response.data);
@@ -92,6 +93,9 @@ function Sform(){
                 
                 
             </form>
+            <span>Already have an account 
+                <Link to='/'>Sign in</Link>
+            </span>
     </>)
 }
 
