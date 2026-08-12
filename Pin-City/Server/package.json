@@ -15,12 +15,13 @@
     "nodemon": "^3.1.14"
   },
   "dependencies": {
-    "bcrypt": "^6.0.0",
+    "argon2": "^0.45.1",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "pg": "^8.23.0"
   },
   "allowScripts": {
-    "bcrypt@6.0.0": true
+    "bcrypt@6.0.0": true,
+    "argon2@0.45.1": true
   }
 }

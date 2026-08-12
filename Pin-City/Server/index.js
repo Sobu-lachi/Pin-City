@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import pool from './db.js';
-import bcrypt from 'bcrypt'
+import argon2 from 'argon2'
 
 const PORT = process.env.PORT|| 8000;
 const app = express();
@@ -24,7 +24,7 @@ app.post('/Sform', async (req, res)=>{
 
     try {
 
-        const hashedpassword = await bcrypt.hash(password, 10)
+        const hashedpassword = await argon2.hash(password)
         const sqlQuery = `
             INSERT INTO users (first_name, last_name, email, user_name, user_pword_hash)
             VALUES ($1, $2, $3, $4, $5)
