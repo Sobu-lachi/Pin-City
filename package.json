@@ -31,5 +31,13 @@
     "eslint-plugin-react-refresh": "^0.5.3",
     "globals": "^17.7.0",
     "vite": "^8.2.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Favour16GHJ/Pin-City.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Favour16GHJ/Pin-City/issues"
+  },
+  "homepage": "https://github.com/Favour16GHJ/Pin-City#readme"
 }

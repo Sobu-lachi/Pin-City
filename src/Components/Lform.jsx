@@ -16,7 +16,7 @@ function Lform(){
         }
 
         try{
-            const response = await axios('http://localhost:8000', {
+            const response = await axios('http://localhost:8000/Lform', {
                 username, password
             })
             // console.log("Success from backend:", data);
