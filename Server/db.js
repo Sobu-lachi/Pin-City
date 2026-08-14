@@ -1,4 +1,7 @@
-import pg from 'pg';
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+import pg from 'pg'
+import argon2 from 'argon2';
 
 const {Pool} = pg;
 
@@ -19,5 +22,10 @@ pool.query('SELECT NOW()',  (err, res) => {
 });
 
 // at:', res.rows[0].now
-
-export default pool;
+const argon2Options ={
+  type: argon2.argon2id,
+  memoryCost:19456,
+  timeCost: 2,
+  parallelism: 1
+}
+export {pool, argon2Options}
