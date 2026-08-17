@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+// import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Lform from './Components/Lform.jsx'
@@ -8,7 +8,7 @@ import PinHistory from './Components/PinHistory.jsx'
 import './index.css'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // <StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path='/Dashboard' element = {<Dashboard/>}/>
@@ -17,5 +17,5 @@ createRoot(document.getElementById('root')).render(
         <Route path='/PinHistory' element= {<PinHistory/>}/>
       </Routes>
     </BrowserRouter>
-  </StrictMode>
+  // </StrictMode>
 )

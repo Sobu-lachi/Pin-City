@@ -14,13 +14,8 @@ function Dashboard(){
     function handleHamburger(){
         setIsMenuOpen(m => !m);
     }
-// Not important just for checking purposes
-    // useEffect(() => {
-    //     console.log(isMenuOpen);
-    // }, [isMenuOpen]);
 
-
-    function handlePinNavigaton(e){
+    function handlePinNavigaton(){
         navigate('/PinHistory');
     }
 
@@ -37,33 +32,24 @@ function Dashboard(){
 
     async function fetchDashboardData() {
     try {
-        // Retrieve the stored ticket
         const savedToken = localStorage.getItem('userToken');
 
         const response = await axios.get('http://localhost:8000/Dashboard', {
             headers: {
-                // Pass it using the industry standard "Bearer <token>" format
                 'Authorization': `Bearer ${savedToken}`
             }
         });
         
         console.log("Protected Data:", response.data);
     } catch (err) {
-        // If the token is expired or invalid, the backend rejects it with a 401/403
         console.error("Access denied:", err.response?.status);
-        navigate('/'); // Send them back to login page
+        navigate('/');
     }
 }
 
-useEffect(()=>{async function fetchData() {
-      try {
-        await fetchDashboardData();
-      } catch (error) {
-        navigate('/');
-      }
-    };
-    fetchData();
-  }, [navigate])
+useEffect(() => {
+    fetchDashboardData();
+});
 
     return (
         /* Needs local storage */

@@ -2,9 +2,9 @@ import express from 'express'
 import {pool, argon2Options} from './db.js';
 import argon2 from 'argon2';
 
-const signUpForm = express.Router()
+const SignupRouter = express.Router()
 
-signUpForm.post('/', async (req, res)=>{
+SignupRouter.post('/Sform', async (req, res)=>{
     const {fName, lName, email, userName, password} = req.body;
 
     try {
@@ -16,16 +16,11 @@ signUpForm.post('/', async (req, res)=>{
             VALUES ($1, $2, $3, $4, $5)
         `;
         const values = [fName, lName, email, userName, hashedpassword];
-console.log("ENTERED PASSWORD:", password);
-
-
-        const result = await pool.query(sqlQuery, values);
+        
+        await pool.query(sqlQuery, values);
         
         res.status(200);
         res.json();
-
-        // res.json({message: "Login successful!",
-        //     token: token});
 
     } catch (error) {
         console.error('Database Error:', error);
@@ -36,9 +31,7 @@ console.log("ENTERED PASSWORD:", password);
         
         res.status(500).json({ message: 'Internal server database error.' });
     }
-
-    // res.json({message:'Done'});
 })
 
 
-export default signUpForm
+export default SignupRouter

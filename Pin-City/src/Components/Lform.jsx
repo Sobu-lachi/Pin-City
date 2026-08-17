@@ -18,11 +18,9 @@ function Lform(){
         try{
             const response = await axios.post('http://localhost:8000/Lform', {
                 username, password
-            })      
-            console.log(response.data.message)
+            })
             const token = response.data.token;
             localStorage.setItem('userToken', token);
-            // console.log(token)
             setPassword('');
             setUserName('');
             navigate('/Dashboard');
@@ -36,7 +34,7 @@ function Lform(){
 
     return(  
         <div>
-            <form method='module' action='submit' onSubmit={handleLogin}>
+            <form onSubmit={handleLogin}>
                 <label htmlFor="uname" >Username:</label> <br />
                 <input type="text" name="" id="uname" value={username} onChange={e=>{
                     setUserName(e.target.value)

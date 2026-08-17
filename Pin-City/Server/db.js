@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import pg from 'pg';
 import argon2 from 'argon2';
 
@@ -11,6 +12,7 @@ const pool = new Pool({
     port: process.env.DB_PORT
 }); 
 
+// eslint-disable-next-line no-unused-vars
 pool.query('SELECT NOW()',  (err, res) => {
   if (err) {
     console.error('Database connection failed:', err.stack);
