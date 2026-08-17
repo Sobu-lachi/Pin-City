@@ -16,10 +16,13 @@ function Lform(){
         }
 
         try{
-            const response = await axios('http://localhost:8000', {
+            const response = await axios.post('http://localhost:8000/Lform', {
                 username, password
-            })
-            // console.log("Success from backend:", data);
+            })      
+            console.log(response.data.message)
+            const token = response.data.token;
+            localStorage.setItem('userToken', token);
+            // console.log(token)
             setPassword('');
             setUserName('');
             navigate('/Dashboard');

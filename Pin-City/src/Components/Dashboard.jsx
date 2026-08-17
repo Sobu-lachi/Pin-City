@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import '../ComCSS/Dashboard.css'
 import {FaBars} from 'react-icons/fa'
 import hero from "../assets/hero.png"
+import axios from 'axios'
 
 function Dashboard(){
     const [darkMode, setDarkMode] = useState(false)
@@ -18,6 +19,7 @@ function Dashboard(){
     //     console.log(isMenuOpen);
     // }, [isMenuOpen]);
 
+
     function handlePinNavigaton(e){
         navigate('/PinHistory');
     }
@@ -31,6 +33,37 @@ function Dashboard(){
             document.body.className = darkMode ? "dark" : ""; 
         }, [darkMode]
     )
+
+
+    async function fetchDashboardData() {
+    try {
+        // Retrieve the stored ticket
+        const savedToken = localStorage.getItem('userToken');
+
+        const response = await axios.get('http://localhost:8000/Dashboard', {
+            headers: {
+                // Pass it using the industry standard "Bearer <token>" format
+                'Authorization': `Bearer ${savedToken}`
+            }
+        });
+        
+        console.log("Protected Data:", response.data);
+    } catch (err) {
+        // If the token is expired or invalid, the backend rejects it with a 401/403
+        console.error("Access denied:", err.response?.status);
+        navigate('/'); // Send them back to login page
+    }
+}
+
+useEffect(()=>{async function fetchData() {
+      try {
+        await fetchDashboardData();
+      } catch (error) {
+        navigate('/');
+      }
+    };
+    fetchData();
+  }, [navigate])
 
     return (
         /* Needs local storage */

@@ -1,7 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import axios  from "axios";
-import { Link } from "react-router-dom";
 
 function Sform(){
     const navigate = useNavigate();
@@ -13,7 +12,7 @@ function Sform(){
     const [confirmPassword, setConfirmPassword] = useState('');
 
 
-    async function handleFormSumission(e){
+    async function handleFormSubmission(e){
         e.preventDefault();
         if (!fName.trim()||!lName.trim()||!email.trim()||
         !userName.trim()||!password.trim()||!confirmPassword.trim()){
@@ -30,7 +29,9 @@ function Sform(){
             const response = await axios.post('http://localhost:8000/Sform', {
                 fName, lName, email, userName, password, confirmPassword
             })
-            // console.log(response.data);
+            // const token = response.data.token;
+            // localStorage('userToken', token)
+            console.log(response.data);
             setFname('');
             setLname('');
             setEmail('');
@@ -46,7 +47,7 @@ function Sform(){
     }
 
     return(<>
-    <form action="" method="" onSubmit={handleFormSumission}>
+    <form action="" method="" onSubmit={handleFormSubmission}>
                 <label htmlFor="Fname">First name: </label> <br />
                 <input type="text" name="" id="Fname" placeholder="Enter first name" 
                     value={fName} onChange={(e)=>{
