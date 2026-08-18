@@ -1,0 +1,15 @@
+//Login credentials
+
+{
+  "email": "me@gmail.com",
+  "password": "me"
+}
+
+//Signup credentials
+{
+    "fName": "me", 
+    "lName": "me", 
+    "email": "me@gmail.com", 
+    "userName": "me",
+    "password": "me"
+}

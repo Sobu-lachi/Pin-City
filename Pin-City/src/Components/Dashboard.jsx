@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import '../ComCSS/Dashboard.css'
 import {FaBars} from 'react-icons/fa'
 import hero from "../assets/hero.png"
-import axios from 'axios'
+// import axios from 'axios'
+import api from './api.js'
 
 function Dashboard(){
     const [darkMode, setDarkMode] = useState(false)
@@ -30,26 +31,36 @@ function Dashboard(){
     )
 
 
-    async function fetchDashboardData() {
-    try {
-        const savedToken = localStorage.getItem('userToken');
+//     async function fetchDashboardData() {
+//     try {
+//         const savedToken = localStorage.getItem('accessToken');
 
-        const response = await axios.get('http://localhost:8000/Dashboard', {
-            headers: {
-                'Authorization': `Bearer ${savedToken}`
-            }
-        });
+//         const response = await axios.get('http://localhost:8000/Dashboard', {
+//             headers: {
+//                 'Authorization': `Bearer ${savedToken}`
+//             }
+//         });
         
-        console.log("Protected Data:", response.data);
-    } catch (err) {
-        console.error("Access denied:", err.response?.status);
-        navigate('/');
-    }
-}
+//         console.log("Protected Data:", response.data);
+//     } catch (err) {
+//         console.error("Access denied:", err.response?.status);
+//         navigate('/');
+//     }
+// }
 
 useEffect(() => {
-    fetchDashboardData();
-});
+    // fetchDashboardData();
+    async function loadData() {
+      try {
+        const response = await api.get('/Dashboard');
+        // eslint-disable-next-line no-undef
+        setData(response.data.secretData);
+      } catch (e) {
+        console.error(`${e}: if it gets here, the user is completely logged out.`);
+      }
+    }
+    loadData()
+}, []);
 
     return (
         /* Needs local storage */

@@ -4,25 +4,25 @@ import axios from 'axios';
 
 function Lform(){
     const navigate = useNavigate();
-    const [username, setUserName] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
 
     async function handleLogin(e){
         e.preventDefault();
-        if (!username.trim()|| !password.trim()){
+        if (!email.trim()|| !password.trim()){
             alert('Please fill in values');
             return;
         }
 
         try{
             const response = await axios.post('http://localhost:8000/Lform', {
-                username, password
+                email, password
             })
-            const token = response.data.token;
-            localStorage.setItem('userToken', token);
+            const accessToken = response.data.token;
+            localStorage.setItem('accessToken', accessToken);
             setPassword('');
-            setUserName('');
+            setEmail('');
             navigate('/Dashboard');
 
         }catch(error){
@@ -35,9 +35,9 @@ function Lform(){
     return(  
         <div>
             <form onSubmit={handleLogin}>
-                <label htmlFor="uname" >Username:</label> <br />
-                <input type="text" name="" id="uname" value={username} onChange={e=>{
-                    setUserName(e.target.value)
+                <label htmlFor="uname" >Email address:</label> <br />
+                <input type="email" name="" id="uname" value={email} onChange={e=>{
+                    setEmail(e.target.value)
                 }}/> <br />
 
                 <label htmlFor="password">Password:</label> <br />
