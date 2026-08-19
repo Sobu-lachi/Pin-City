@@ -16,11 +16,11 @@ function Lform(){
         }
 
         try{
-            const response = await axios.post('http://localhost:8000/Lform', {
+           await axios.post('http://localhost:8000/Lform', {
                 email, password
             })
-            const accessToken = response.data.token;
-            localStorage.setItem('accessToken', accessToken);
+            // const accessToken = response.data.token;
+            // localStorage.setItem('accessToken', accessToken);
             setPassword('');
             setEmail('');
             navigate('/Dashboard');

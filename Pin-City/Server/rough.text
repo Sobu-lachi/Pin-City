@@ -13,3 +13,40 @@
     "userName": "me",
     "password": "me"
 }
+
+//
+authRouter.post('/logout', async (req, res) => {
+    const refreshToken = req.cookies.refreshToken;
+
+    try {
+        // 1. Delete the token record from PostgreSQL so it can never be used to refresh again
+        if (refreshToken) {
+            await pool.query('DELETE FROM user_sessions WHERE token = $1', [refreshToken]);
+        }
+
+        // 2. Clear the HttpOnly cookie out of the browser completely
+        res.clearCookie('refreshToken');
+
+        res.json({ message: "Logged out from this device successfully!" });
+    } catch (error) {
+        res.status(500).json({ message: "Error logging out." });
+    }
+});
+
+
+//
+
+async function handleLogout() {
+    try {
+        // 1. Hit the backend logout endpoint (Axios automatically sends the cookie via withCredentials)
+        await api.post('/logout'); 
+        
+        // 2. Wipe the access token out of local memory storage
+        localStorage.removeItem('accessToken');
+
+        // 3. Kick them out to the login screen
+        navigate('/');
+    } catch (err) {
+        console.error("Logout failed:", err);
+    }
+}

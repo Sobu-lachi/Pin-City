@@ -20,7 +20,7 @@ SignupRouter.post('/Sform', async (req, res)=>{
         await pool.query(sqlQuery, values);
         
         res.status(200);
-        res.json();
+        res.json({message: 'Sign-Up Successful'});
 
     } catch (error) {
         console.error('Database Error:', error);

@@ -30,31 +30,11 @@ function Dashboard(){
         }, [darkMode]
     )
 
-
-//     async function fetchDashboardData() {
-//     try {
-//         const savedToken = localStorage.getItem('accessToken');
-
-//         const response = await axios.get('http://localhost:8000/Dashboard', {
-//             headers: {
-//                 'Authorization': `Bearer ${savedToken}`
-//             }
-//         });
-        
-//         console.log("Protected Data:", response.data);
-//     } catch (err) {
-//         console.error("Access denied:", err.response?.status);
-//         navigate('/');
-//     }
-// }
-
 useEffect(() => {
     // fetchDashboardData();
     async function loadData() {
       try {
-        const response = await api.get('/Dashboard');
-        // eslint-disable-next-line no-undef
-        setData(response.data.secretData);
+        await api.get('/Dashboard');
       } catch (e) {
         console.error(`${e}: if it gets here, the user is completely logged out.`);
       }
