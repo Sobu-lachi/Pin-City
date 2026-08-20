@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import '../ComCSS/Dashboard.css'
 import {FaBars} from 'react-icons/fa'
 import hero from "../assets/hero.png"
-// import axios from 'axios'
 import api from './api.js'
 
 function Dashboard(){
@@ -31,7 +30,6 @@ function Dashboard(){
     )
 
 useEffect(() => {
-    // fetchDashboardData();
     async function loadData() {
       try {
         await api.get('/Dashboard');

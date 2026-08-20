@@ -2,7 +2,7 @@
 import express from 'express';
 import cors from 'cors';
 import SignupRouter from './Sform.js'
-import LoginFormRouter from './Lform.js'
+import LoginFormRouter from './Login.js'
 import dashboardRouter from './dashboard.js';
 import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
@@ -45,7 +45,7 @@ app.post('/refresh', (req, res)=>{
         const newAccessToken = jwt.sign(
             { id: decodedPayload.id }, 
             process.env.JWT_SECRET_TOKEN, 
-            { expiresIn: '30s' } //15m
+            { expiresIn: '15m' } //15m
         );
 
          res.cookie('accessToken', newAccessToken, {

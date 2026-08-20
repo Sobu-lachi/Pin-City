@@ -50,3 +50,39 @@ async function handleLogout() {
         console.error("Logout failed:", err);
     }
 }
+
+
+
+
+//Css
+
+// ThemeContext.jsx
+import { createContext, useContext, useState, useEffect } from 'react';
+
+const ThemeContext = createContext();
+
+export function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState('light'); // Can be 'light' or 'dark'
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.body.style.backgroundColor = '#1a1a1a';
+      document.body.style.color = '#ffffff';
+    } else {
+      document.body.style.backgroundColor = '#ffffff';
+      document.body.style.color = '#000000';
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+export const useTheme = () => useContext(ThemeContext);
