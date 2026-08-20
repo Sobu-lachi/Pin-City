@@ -2,7 +2,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import axios  from "axios";
 
-function Sform(){
+function SignUp(){
     const navigate = useNavigate();
     const [fName, setFname] = useState('');
     const [lName, setLname] = useState('');
@@ -100,4 +100,4 @@ function Sform(){
     </>)
 }
 
-export default Sform
+export default SignUp

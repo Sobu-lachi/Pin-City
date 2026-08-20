@@ -1,6 +1,9 @@
 import {Link, useNavigate} from 'react-router-dom'
 import { useEffect, useState } from 'react';
-import { useTheme } from './ThemeContext.jsx';
+import { useTheme} from './ThemeContext.jsx';
+import BgImg from '../assets/BgImg.png'
+// import bgimg1 from '../assets/bgImg1.jpg'
+
 import api from './api.js';
 import '../ComCSS/Login.css'
 
@@ -8,11 +11,15 @@ function Login(){
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const {setBodyColor} = useTheme()
+    const {setBodyColor, setBodyImage} = useTheme()
 
     useEffect(()=>{
-        setBodyColor('#fffada')    
-    },[setBodyColor])
+        // setBodyColor('#626891');    
+        setBodyColor('#dadfff');    
+    
+        setBodyImage(`${BgImg}`)
+
+    },[setBodyColor, setBodyImage])
 
     async function handleLogin(e){
         e.preventDefault();
@@ -41,11 +48,13 @@ function Login(){
 
     return(  
         <div className='form-div'>
+
             <form className= 'form' onSubmit={handleLogin}>
                 <label htmlFor="uname" >Email address:
                    <br /> <input type="email" name="" id="uname" value={email} onChange={e=>{
                     setEmail(e.target.value)
                 }}/>
+            <p>Incorrect Password</p>
                 </label>
 
                 <label htmlFor="password">Password:
@@ -60,9 +69,10 @@ function Login(){
             </form>
             <div className='span-div'>
                 <span>
-                    Don't have an account <Link to= '/SignUp'>SignUp</Link>
+                    Don't have an account <Link className='link' to= '/SignUp'>SignUp</Link>
                 </span>
             </div>
+            
         </div>
         
     )

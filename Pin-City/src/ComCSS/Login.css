@@ -1,17 +1,19 @@
 
 .form-div{
-    /* height: 100vh; */
-    border: 1px solid black;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.413);
     border-radius: 10px;
-    background-color: transparent;
-    /* backdrop-filter: 10; */
+    background-color: rgba(255, 255, 255, 0.578);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); 
     display: flex;
     flex-direction: column;
     gap: 1rem;
     padding: 40px 0px 40px 0px;
     min-width: 10rem;
     width: 18rem;
-    height: 200px;
+    height: 280px;
     justify-self: center;
     align-items: center;
     position: absolute;
@@ -21,17 +23,51 @@
 }
 
 .form{
-    margin-top: 20px;
-    height: 200px;
+    margin-top: 50px;
+    height: 250px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap:20px;
+}
+
+p{
+    margin: 5px 0px 0px 0px;
+    color: red;
 }
 
 .button{
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 6px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 12px;
     margin-top: 10px;
     width: 70px;
     /* justify-self: center; */
     align-self: center;
+    color: black;
+
+
+}
+
+input{
+    background-color: rgba(255, 255, 255, 0.374);
+    outline:none;
+    border: 1px solid black;
+    height: 30px;
+    width: 230px;
+    margin-top: 5px;
+    border-radius: 5px;
+    padding: 0px 4px;
+}
+
+span{
+    font-size: 11px;
+}
+
+.link{
+    color: rgb(187, 26, 26);
+    text-decoration:none;
 
 }
