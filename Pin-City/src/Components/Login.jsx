@@ -1,5 +1,5 @@
 import {Link, useNavigate} from 'react-router-dom'
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTheme} from './ThemeContext.jsx';
 import leftimg from '../assets/left-visual.png'
 import logo from '../assets/logo.png'
@@ -10,7 +10,9 @@ function Login(){
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const {setBodyColor, setBodyImage} = useTheme()
+    const [eMessage, setEMessage] = useState('');
+    const timerRef = useRef(null)
+    const {setBodyColor, setBodyImage} = useTheme();
 
     useEffect(()=>{
         // setBodyColor('#626891');    
@@ -22,9 +24,17 @@ function Login(){
 
     async function handleLogin(e){
         e.preventDefault();
+
+        if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+
         if (!email.trim()|| !password.trim()){
-            alert('Please fill in values');
-            return;
+            setEMessage('Please, fill in all available fields');
+            timerRef.current = setTimeout(()=>{ 
+                setEMessage('');
+            },3000)
+            // return;
         }
 
         try{
@@ -48,14 +58,15 @@ function Login(){
     const inputStyle = `my-2 h-8 w-70 rounded-lg  p-2 text-black outline-none transition-all duration-200
              focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 shadow-xs
              shadow-black/50 `;
-
+    const formStyle = `absolute top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-2xl p-5 pt-0 h-100
+                w-80 flex self-center justify-center flex-col shadow-lg shadow-black/50 text-sm`
     
 
     return(  
         <div className='h-dvh grid grid-cols-1 md:grid-cols-2 
         bg-white gap-1'>
 
-            <img className='h-dvh w-dvw scale-x-[-1]' src={leftimg} alt="" srcset="" />
+            <img className='h-dvh w-dvw scale-x-[-1]' src={leftimg} alt="" />
         
 
         <div className=' flex flex-col shadow-lg shadow-black
@@ -65,8 +76,16 @@ function Login(){
                 <p className='mt-1 ml-3 font-bold font-[montserrat]'>Pincity</p>
             </div>
 
-            <form className={`absolute top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-2xl p-5 pt-0 h-100
-                w-80 flex self-center justify-center flex-col shadow-lg shadow-black/50 text-sm`} onSubmit={handleLogin} >
+            <form className={formStyle} onSubmit={handleLogin} >
+
+                {eMessage &&(
+                    <div  className='transition-all duration-200 h-6 mb-1 text-red-500  p-0.5 
+                    self-center'>
+                    <p>{eMessage}</p>
+                    </div>
+
+                )}
+
                     <h1 className='font-medium font-[montserrat] text-3xl mb-5'>Welcome Back</h1>
                     <label htmlFor="uname" >Email address:
 
