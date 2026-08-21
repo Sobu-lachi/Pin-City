@@ -86,3 +86,54 @@ export function ThemeProvider({ children }) {
 }
 
 export const useTheme = () => useContext(ThemeContext);
+
+
+//Timed div
+
+import React, { useState, useEffect } from 'react';
+
+function LoginButton() {
+  const [showNotification, setShowNotification] = useState(false);
+
+  const handleLogin = () => {
+    // 1. Trigger your login logic here
+    // 2. Show the success notification
+    setShowNotification(true);
+  };
+
+  useEffect(() => {
+    // If notification is not visible, do nothing
+    if (!showNotification) return;
+
+    // Set a timer to hide the notification after 3 seconds
+    const timer = setTimeout(() => {
+      setShowNotification(false);
+    }, 3000);
+
+    // Clean up the timer if the component unmounts
+    return () => clearTimeout(timer);
+  }, [showNotification]);
+
+  return (
+    <div style={{ position: 'relative', padding: '20px' }}>
+      <button onClick={handleLogin}>Log In</button>
+
+      {showNotification && (
+        <div style={{
+          position: 'fixed',
+          top: '20px',
+          right: '20px',
+          backgroundColor: '#4CAF50',
+          color: 'white',
+          padding: '15px',
+          borderRadius: '5px',
+          boxShadow: '0px 4px 6px rgba(0,0,0,0.1)'
+        }}>
+          Login successful!
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default LoginButton;
