@@ -55,7 +55,7 @@ function Login(){
              focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 shadow-xs
              shadow-black/50 `;
     const formStyle = "absolute top-1/2 -translate-y-1/2 bg-white backdrop-blur-sm rounded-2xl p-5 pt-10 h-100 w-80 flex self-center justify-center flex-col shadow-lg shadow-black/50 text-sm"
-    
+       
 
     return(  
         <div className='screen'>
