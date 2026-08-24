@@ -79,8 +79,7 @@ function Login(){
             <form className={formStyle} onSubmit={handleLogin} >
 
                 {eMessage &&(
-                    <div  className='transition-all duration-200 h-6 mb-1 text-red-500  p-0.5 
-                    self-center'>
+                    <div  className= 'transition-all duration-200 h-6 mb-1 text-red-500  p-0.5  self-center'>
                     <p>{eMessage}</p>
                     </div>
 
