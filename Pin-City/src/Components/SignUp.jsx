@@ -1,6 +1,8 @@
 import { useNavigate, Link } from "react-router-dom";
-import { useState } from "react";
-import axios  from "axios";
+import { useRef, useState } from "react";
+import api from "./api.js";
+import leftimg from '../assets/left-visual.png'
+
 
 function SignUp(){
     const navigate = useNavigate();
@@ -10,28 +12,44 @@ function SignUp(){
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const timer = useRef(null)
+
 
 
     async function handleFormSubmission(e){
         e.preventDefault();
+
+        if (timer.current) {
+      clearTimeout(timer.current);
+    }
+
         if (!fName.trim()||!lName.trim()||!email.trim()||
         !userName.trim()||!password.trim()||!confirmPassword.trim()){
-            alert('Please fill in all needed data')
+            setErrorMessage('Please fill in all needed data')
+            timer.current = setTimeout(()=>{
+                setErrorMessage('')
+            }, 4000)
             return;
         }
 
         if (password.trim() !== confirmPassword.trim()){
-            alert('Password mis-match: re-enter password ');
+            setErrorMessage('Password mis-match');
+            timer.current = setTimeout(()=>{
+                setErrorMessage('')
+            }, 4000)
             return;
         }
 
         try{
-            const response = await axios.post('http://localhost:8000/Sform', {
+            // eslint-disable-next-line no-unused-vars
+            const response = await api.post('http://localhost:8000/SignUp', {
                 fName, lName, email, userName, password, confirmPassword
             })
             // const token = response.data.token;
             // localStorage('userToken', token)
-            console.log(response.data);
+            // console.log(response.data);
             setFname('');
             setLname('');
             setEmail('');
@@ -41,63 +59,88 @@ function SignUp(){
 
             navigate('/');
         }catch(e){
-            console.error(e)
+            setErrorMessage(e.response.data.message);
+            timer.current = setTimeout(()=>{
+                setErrorMessage('')
+            }, 4000)
         }
 
     }
 
-    return(<>
-    <form action="" method="" onSubmit={handleFormSubmission}>
-                <label htmlFor="Fname">First name: </label> <br />
-                <input type="text" name="" id="Fname" placeholder="Enter first name" 
+    //  Css styles
+    const input = `mt-1 h-8 w-70 rounded-lg  p-2 text-black outline-none transition-all duration-200
+             focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 shadow-xs
+             shadow-black/50`;
+
+    const formStyle = `relative grid md:grid-cols-2 gap-x-4 gap-y-0 absolute top-1/2 -translate-y-1/2 bg-white backdrop-blur-sm rounded-2xl p-4 
+    pt-10 h-100 w-150 self-center justify-center shadow-lg shadow-black/50 text-sm`;
+
+    return(
+    <div className ='screen'>        
+        <div className="flex flex-col shadow-lg shadow-black
+        bg-linear-to-bl from-[#4F46E5]/30 to-white">
+            
+        <form className={formStyle}
+        action="" method="" onSubmit={handleFormSubmission}>
+                <div><label htmlFor="Fname">First name: </label>
+                <input className={input} type="text" name="" id="Fname" placeholder="Enter first name" 
                     value={fName} onChange={(e)=>{
                         setFname(e.target.value)
                     }}
-                /> <br />
+                /></div>
                 
-                <label htmlFor="Lname">Last Name: </label> <br />
-                <input type="text" id="Lname" placeholder="Enter last name" 
+                <div><label htmlFor="Lname">Last Name: </label>
+                <input className={input} type="text" id="Lname" placeholder="Enter last name" 
                     value={lName} onChange={(e)=>{
                         setLname(e.target.value)
                     }}
-                /> <br />
+                /></div>
                 
-                <label htmlFor="email">Email address: </label> <br />
-                <input type="email" name="" id="email" placeholder="Enter email address" 
+                <div><label htmlFor="email">Email address: </label>
+                <input className={input}  type="email" name="" id="email" placeholder="Enter email address" 
                     value={email} onChange={(e)=>{
                         setEmail(e.target.value)
                     }}
-                /> <br />
+                /></div>
                 
-                <label htmlFor="uname">Username: </label> <br />
-                <input type="text" name="" id="uname" placeholder="Enter username"
+                <div><label htmlFor="uname">Username: </label>
+                <input className={input} type="text" name="" id="uname" placeholder="Enter username"
                     value={userName} onChange={(e)=>{
                         setUserName(e.target.value)
                     }}
-                /> <br />
+                /></div>
                 
-                <label htmlFor="password">Password: </label> <br />
-                <input type="password" name="" id="password" placeholder="Enter password"
+                <div><label htmlFor="password">Password: </label>
+                <input className={input} type="password" name="" id="password" placeholder="Enter password"
                     value={password} onChange={(e)=>{
                         setPassword(e.target.value)
                     }}
-                /> <br />
+                /></div>
                 
-                <label htmlFor="Cpassword">Confirm Password: </label> <br />
-                <input type="password" id="Cpassword" placeholder="Re-enter password"
+                <div><label htmlFor="Cpassword">Confirm Password: </label>
+                <input className={input} type="password" id="Cpassword" placeholder="Re-enter password"
                     value={confirmPassword} onChange={(e)=>{
                         setConfirmPassword(e.target.value)
                     }}
-                /> <br />
+                /> </div>
+                <span className="mt-7">Already have an account  <Link className ="text-red-500" to='/'>Sign in</Link>
+            </span>
                 
-                <button type="submit">Create Account</button>
+                <button className="mt-0 bg-[#4F46E5] text-white border border-gray-500  rounded-sm w-50 self-center p-1" type="submit">Create Account</button>
                 
+                
+                <div className={`absolute inset-0 m-auto mb-2 flex items-center justify-center transition-all duration-200 h-6 mb-1 text-red-500  p-0.5
+                 w-70 rounded-sm self-center ${errorMessage ? 'visible opacity-100 scale-100': 'invisible opacity-0 scale-95'}`}>
+                    {errorMessage && (<p>{errorMessage}</p>)}
+                </div>
+            
                 
             </form>
-            <span>Already have an account 
-                <Link to='/'>Sign in</Link>
-            </span>
-    </>)
+            </div>
+        <img className='h-dvh w-dvw scale-x-[-1]' src={leftimg} alt="" />
+
+    </div>
+    )
 }
 
 export default SignUp

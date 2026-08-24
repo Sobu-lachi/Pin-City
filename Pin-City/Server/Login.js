@@ -29,6 +29,8 @@ LoginFormRouter.post('/Login', async (req, res)=>{
 
         const tokendata = {
             id: user.user_name,
+            name: user.first_name,
+            others:user.email
         }
 
         const accessToken = jwt.sign(tokendata, process.env.JWT_SECRET_TOKEN, {expiresIn:'15m'});

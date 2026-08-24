@@ -137,3 +137,9 @@ function LoginButton() {
 }
 
 export default LoginButton;
+
+
+
+<button className='handleMenu' onClick={handleHamburger} aria-label="Open navigation menu">
+                <FaBars/>
+            </button>
