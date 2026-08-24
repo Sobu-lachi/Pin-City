@@ -1,6 +1,6 @@
 import {Link, useNavigate} from 'react-router-dom'
-import { useEffect, useRef, useState } from 'react';
-import { useTheme} from './ThemeContext.jsx';
+import {  useRef, useState } from 'react';
+// import { useTheme} from './ThemeContext.jsx';
 import leftimg from '../assets/left-visual.png'
 import logo from '../assets/logo.png'
 import api from './api.js';
@@ -13,15 +13,15 @@ function Login(){
     const [errorMessage, setErrorMessage] = useState('');
     // const [errorMessage, setErrorMessage] = useState('');
     const timerRef = useRef(null)
-    const {setBodyColor, setBodyImage} = useTheme();
+    // const {setBodyColor, setBodyImage} = useTheme();
 
-    useEffect(()=>{
+    // useEffect(()=>{
         // setBodyColor('#626891');    
         // setBodyColor('#dadfff');      
     
         // setBodyImage(`${BgImg}`)
 
-    },[setBodyColor, setBodyImage])
+    // },[setBodyColor, setBodyImage])
 
     async function handleLogin(e){
         e.preventDefault();

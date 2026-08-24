@@ -28,9 +28,7 @@ LoginFormRouter.post('/Login', async (req, res)=>{
             })};
 
         const tokendata = {
-            id: user.user_name,
-            name: user.first_name,
-            others:user.email
+            id: user.id
         }
 
         const accessToken = jwt.sign(tokendata, process.env.JWT_SECRET_TOKEN, {expiresIn:'15m'});
@@ -52,9 +50,8 @@ LoginFormRouter.post('/Login', async (req, res)=>{
        
         res.json({message: 'Login Successful'})
     }catch(e){
-    console.error("Login error:", e);
     res.status(500).json({
-        message: "Something went wrong"
+        message: `${e}: Something went wrong`
     });
 }
 

@@ -54,28 +54,36 @@ async function handleLogout() {
 
 
 
-//Css
+//Css for dark theme
+
+@custom-variant dark (&:where(.dark, .dark *));
+
 
 // ThemeContext.jsx
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState('light'); // Can be 'light' or 'dark'
+  // Check localStorage, default to 'light' if empty
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'light';
+  });
 
   useEffect(() => {
+    const root = window.document.documentElement;
+    
     if (theme === 'dark') {
-      document.body.style.backgroundColor = '#1a1a1a';
-      document.body.style.color = '#ffffff';
+      root.classList.add('dark'); // Tailwind picks this up!
     } else {
-      document.body.style.backgroundColor = '#ffffff';
-      document.body.style.color = '#000000';
+      root.classList.remove('dark');
     }
+    
+    localStorage.setItem('theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
   };
 
   return (
@@ -88,58 +96,52 @@ export function ThemeProvider({ children }) {
 export const useTheme = () => useContext(ThemeContext);
 
 
-//Timed div
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import { ThemeProvider } from './ThemeContext.jsx';
 
-import React, { useState, useEffect } from 'react';
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
+  </React.StrictMode>
+);
 
-function LoginButton() {
-  const [showNotification, setShowNotification] = useState(false);
 
-  const handleLogin = () => {
-    // 1. Trigger your login logic here
-    // 2. Show the success notification
-    setShowNotification(true);
-  };
+import { useTheme } from './ThemeContext';
 
-  useEffect(() => {
-    // If notification is not visible, do nothing
-    if (!showNotification) return;
-
-    // Set a timer to hide the notification after 3 seconds
-    const timer = setTimeout(() => {
-      setShowNotification(false);
-    }, 3000);
-
-    // Clean up the timer if the component unmounts
-    return () => clearTimeout(timer);
-  }, [showNotification]);
+export default function HomeCard() {
+  const { theme, toggleTheme } = useTheme();
 
   return (
-    <div style={{ position: 'relative', padding: '20px' }}>
-      <button onClick={handleLogin}>Log In</button>
-
-      {showNotification && (
-        <div style={{
-          position: 'fixed',
-          top: '20px',
-          right: '20px',
-          backgroundColor: '#4CAF50',
-          color: 'white',
-          padding: '15px',
-          borderRadius: '5px',
-          boxShadow: '0px 4px 6px rgba(0,0,0,0.1)'
-        }}>
-          Login successful!
-        </div>
-      )}
+    // Light mode layout defaults, Dark mode overrides via dark:
+    <div className="min-h-screen bg-slate-50 text-slate-900 p-8 transition-colors duration-300
+                    dark:bg-slate-950 dark:text-slate-50">
+      
+      <div className="max-w-md mx-auto bg-white border border-slate-200 p-6 rounded-xl shadow-sm
+                      dark:bg-slate-900 dark:border-slate-800">
+        <h1 className="text-2xl font-bold">Theme Controller</h1>
+        <p className="text-slate-500 dark:text-slate-400 mt-2">
+          Current Theme: <span className="font-semibold capitalize">{theme}</span>
+        </p>
+        
+        <button 
+          onClick={toggleTheme}
+          className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 active:scale-95 transition-all"
+        >
+          Toggle Theme
+        </button>
+      </div>
     </div>
   );
 }
-
-export default LoginButton;
-
 
 
 <button className='handleMenu' onClick={handleHamburger} aria-label="Open navigation menu">
                 <FaBars/>
             </button>
+
+
+//

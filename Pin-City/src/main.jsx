@@ -9,6 +9,7 @@ import SignUp from './Components/SignUp.jsx'
 import PinHistory from './Components/PinHistory.jsx'
 import './index.css'
 
+
 createRoot(document.getElementById('root')).render(
   // <StrictMode>
   // <appBackgroundProvider>

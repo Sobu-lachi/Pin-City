@@ -2,14 +2,16 @@
 import {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../ComCSS/Dashboard.css'
-import { FaMoon} from 'react-icons/fa'
+// MapPinIcon SunIcon
+import { MoonIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline'; 
 // import hero from "../assets/hero.png"
 import { useTheme} from './ThemeContext.jsx';
 import logo from '../assets/logo.png'
 import api from './api.js'
+// import toast, { Toaster } from 'react-hot-toast';
 
 function Dashboard(){
-    const [darkMode, setDarkMode] = useState(false)
+    // const [darkMode, setDarkMode] = useState(false)
     // const [isMenuOpen, setIsMenuOpen] = useState(false)  
     const [usersName, setUsersName] = useState('');
     const navigate = useNavigate();
@@ -29,21 +31,46 @@ function Dashboard(){
         navigate('/PinHistory');
     }
 
-    function handleDarkMode(){
-        setDarkMode(d => !d)
-    }
+    // function handleDarkMode(){
+    //     setDarkMode(d => !d)
+    // }
 
-    useEffect(
-        () => {
-            document.body.className = darkMode ? "dark" : ""; 
-        }, [darkMode]
-    )
+    // useEffect(
+    //     () => {
+    //         document.body.className = darkMode ? "dark" : ""; 
+    //     }, [darkMode]
+    // )
+
+    async function logout(){
+        try{
+            await api.post('/logout');
+            // modal asking are sure you want to logout
+            navigate('/')
+        }catch(e){
+            console.log(e)
+        }
+    }
 
 useEffect(() => {
     async function loadData() {
       try {
         const response = await api.get('/Dashboard');
-        setUsersName(`${response.data.message}`)
+        const name = response.data.message;
+
+        const formattedName =
+            name.charAt(0).toUpperCase() +
+            name.slice(1).toLowerCase();
+
+        setUsersName(formattedName);
+
+//         const showWelcome = () => {
+//             toast('Welcome back', {
+//             className: 'bg-green-300 text-white rounded-lg shadow-lg p-4 font-medium ',
+//             duration: 2000,
+//         });
+//   };
+//     showWelcome();
+
       } catch (e) {
         console.error(`${e}: if it gets here, the user is completely logged out.`);
       }
@@ -52,14 +79,19 @@ useEffect(() => {
 }, []);
 
     return (
-        /* Needs local storage */
         <>
+        {/* <div>
+            <Toaster position='top-center'/>
+        </div> */}
+
+        {/* Needs local storage */}
+
         <div className='bg-gray-100 shadow-sm text-[#0F172A] flex justify-between px-6 py-3 ml-50'>
             <p className='font-bold font-[montserrat] text-lg'>Hi, {usersName}</p>
             <button>
                 {/* Change to svg later */}
-                <FaMoon className=' text-green-300' /></button>
-            {/* <button><FaSun/></button> */}
+                <MoonIcon className='text-green-500 size-6'/>
+                </button>
 
            
         </div>
@@ -75,8 +107,9 @@ useEffect(() => {
                 <button onClick={handlePinNavigaton}>Pin History</button>
                 </div>
             </div>
-            <div className= 'w-39 h-8 flex items-center px-4 text-xs text-white gap-3'>
+            <div className= 'w-39 h-8 flex items-center px-4 text-xs text-white justify-between'>
                 <p>Logout</p>
+                <button onClick={logout}><ArrowRightStartOnRectangleIcon className='size-5 text-gray-400'/></button>
             </div>
         </div>
 {/* Still work on this */}

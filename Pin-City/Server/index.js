@@ -43,7 +43,7 @@ app.post('/refresh', (req, res)=>{
         if (err) return res.status(401).json({ message: "Refresh token is invalid or expired. Please re-login." });
 
         const newAccessToken = jwt.sign(
-            { id: decodedPayload.id }, 
+            { id: decodedPayload.id, }, 
             process.env.JWT_SECRET_TOKEN, 
             { expiresIn: '15m' } //15m
         );
@@ -62,7 +62,21 @@ app.post('/refresh', (req, res)=>{
 })
 
 // verifyToken()
-
+app.post('/logout', (req, res)=> {
+    res.clearCookie('accessToken',{
+            httpOnly: true,
+            secure: false,
+            sameSite: "lax",
+            maxAge: 15 * 60 * 1000
+        });
+    res.clearCookie('refreshToken',{
+            httpOnly: true,
+            secure: false,
+            sameSite: "lax",
+            maxAge: 15 * 60 * 1000
+        });
+    res.json({message: 'Logout successful'})
+})
 
 
 
