@@ -34,6 +34,16 @@ LoginFormRouter.post('/Login', async (req, res)=>{
         const accessToken = jwt.sign(tokendata, process.env.JWT_SECRET_TOKEN, {expiresIn:'15m'});
         const refreshToken = jwt.sign(tokendata, process.env.JWT_REFRESH_SECRET, { expiresIn: '7d' });
        
+        const expiresAt = new Date();
+        expiresAt.setDate(expiresAt.getDate() + 7);
+
+        await pool.query(
+            `INSERT INTO refresh_tokens 
+            (user_id, token, expires_at)
+            VALUES ($1, $2, $3)`,
+            [user.id, refreshToken, expiresAt]
+        );
+
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
             secure: false,

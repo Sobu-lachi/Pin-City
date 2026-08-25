@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../ComCSS/Dashboard.css'
 // MapPinIcon SunIcon
-import { MoonIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline'; 
+import { MoonIcon, ArrowRightStartOnRectangleIcon, RectangleStackIcon } from '@heroicons/react/24/outline'; 
 // import hero from "../assets/hero.png"
 import { useTheme} from './ThemeContext.jsx';
 import logo from '../assets/logo.png'
@@ -118,7 +118,7 @@ useEffect(() => {
             </div>
             <div className='h-103'>
                 <div className= 'rounded-lg bg-[#5B4CDB]/20 w-39 border-l-3 border-[#5B4CDB] h-8 flex items-center px-4 text-xs text-white gap-3'>
-                <img src="" alt="" />
+                <RectangleStackIcon className= 'size-4 text-gray-400/40'/>
                 <button onClick={handlePinNavigaton}>Pin History</button>
                 </div>
             </div>
