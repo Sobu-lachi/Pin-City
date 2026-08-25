@@ -6,6 +6,7 @@ import crypto from 'crypto';
 const pinRouter = express.Router();
 
 pinRouter.post('/generate-pin', verifyToken, async (req, res)=>{
+
     try{
         const userId = req.user.id;
         const years = new Date().getFullYear();
@@ -15,8 +16,8 @@ pinRouter.post('/generate-pin', verifyToken, async (req, res)=>{
 
         if(existingPin.rows[0]){
             return res.status(409).json({
-                message: "You've already generated your pin",
-                pin: existingPin.rows[0]
+                message: "You already have a pin",
+                pin: existingPin.rows[0].pin
         })
         }
 
@@ -29,7 +30,7 @@ pinRouter.post('/generate-pin', verifyToken, async (req, res)=>{
 
         res.status(201).json({
             message: 'Pin generated successfully',
-            pin
+            pin: pin
         })
         } catch (error) {
             if (error.code === '23505' && error.constraint === 'unique_pin') 

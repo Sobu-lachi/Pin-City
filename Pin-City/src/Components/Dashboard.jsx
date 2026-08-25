@@ -16,6 +16,7 @@ function Dashboard(){
     const [usersName, setUsersName] = useState('');
     const navigate = useNavigate();
     const {setBodyColor} = useTheme();
+    const [pin, setPin] = useState('*****')
     
         useEffect(()=>{
             setBodyColor('#E2E8F0')
@@ -48,6 +49,20 @@ function Dashboard(){
             navigate('/')
         }catch(e){
             console.log(e)
+        }
+    }
+
+    async function pinGeneration() {
+        try {
+            const response = await api.post('/generate-pin');
+            setPin(response.data.pin)
+            // console.log("PIN RESPONSE:", response.data);
+
+        } catch (e) {
+            if (e.response?.status === 409) {
+            setPin(e.response.data.pin);
+        }
+            console.log(e.response.data.message)
         }
     }
 
@@ -115,8 +130,11 @@ useEffect(() => {
 {/* Still work on this */}
         <div className='rounded-lg absolute top-75 left-90 -translate-y-1/2 flex items-center justify-center flex-col
         bg-gray-100 w-180 h-100 shadow-lg'>
-            <span className='font-[montserrat] text-7xl font-medium'>*****</span> <br />
-            <button className='bg-[#5B4CDB] text-white p-2 px-4 rounded-3xl font-[montserrat] tracking-tight'>Get Your Pin</button> 
+            <p className='font-[montserrat] text-7xl font-medium'
+            >{pin}</p> <br />
+            <button className='bg-[#5B4CDB] text-white p-2 px-4 rounded-3xl font-[montserrat] tracking-tight'
+                onClick={pinGeneration}
+            >Get Your Pin</button> 
         </div>
         </>
     )

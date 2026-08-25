@@ -64,6 +64,7 @@ app.post('/refresh', (req, res)=>{
         });
     });
 })
+app.use('/', pinRouter)
 
 // verifyToken()
 app.post('/logout', (req, res)=> {
@@ -82,7 +83,6 @@ app.post('/logout', (req, res)=> {
     res.json({message: 'Logout successful'})
 })
 
-app.use('/', pinRouter)
 
 app.listen(8000, ()=>{
     console.log(`I am alive, runnning on port ${PORT}`)
