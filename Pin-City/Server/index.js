@@ -6,6 +6,7 @@ import LoginFormRouter from './Login.js'
 import dashboardRouter from './dashboard.js';
 import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
+import pinRouter from './pin.js';
 // import { verifyToken } from './Middlewares/dashboardAuth.js';
 
 const PORT = process.env.PORT|| 8000;
@@ -20,6 +21,9 @@ app.use(cors({
 app.use(express.json());
 
 app.use(cookieParser())
+
+// const pin = crypto.randomInt(100000, 1000000);
+// console.log(pin)
 
 // Code body
 
@@ -78,7 +82,7 @@ app.post('/logout', (req, res)=> {
     res.json({message: 'Logout successful'})
 })
 
-
+app.use('/', pinRouter)
 
 app.listen(8000, ()=>{
     console.log(`I am alive, runnning on port ${PORT}`)
