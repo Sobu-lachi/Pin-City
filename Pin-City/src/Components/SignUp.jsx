@@ -2,6 +2,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import api from "./api.js";
 import leftimg from '../assets/left-visual.png'
+import logo from '../assets/logo.png'
+
 
 
 function SignUp(){
@@ -68,18 +70,22 @@ function SignUp(){
     }
 
     //  Css styles
-    const input = `mt-1 h-8 w-70 rounded-lg  p-2 text-black outline-none transition-all duration-200
+    const input = `mt-1 h-8 w-full max-w-xs rounded-lg  p-2 text-black outline-none transition-all duration-200
              focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 shadow-xs
              shadow-black/50`;
 
-    const formStyle = `relative grid md:grid-cols-2 gap-x-4 gap-y-0 absolute top-1/2 -translate-y-1/2 bg-white backdrop-blur-sm rounded-2xl p-4 
-    pt-10 h-100 w-150 self-center justify-center shadow-lg shadow-black/50 text-sm`;
+    const formStyle = `flex flex-col gap-2 md:grid md:grid-cols-2 md:gap-x-4 md:gap-y-0  bg-white backdrop-blur-sm rounded-2xl p-4
+    pt-10 md:h-100 md:w-full shadow-lg shadow-black/50 text-sm m-3 md:m-0`;
 
     return(
     <div className ='screen'>        
-        <div className="flex flex-col shadow-lg shadow-black
+        <div className="relative min-h-screen w-full flex flex-col items-center justify-center md:shadow-lg md:shadow-black gap-12 
         bg-linear-to-bl from-[#4F46E5]/30 to-white">
-            
+        
+        <div className='absolute top-4 left-4 transition-all duration-200 flex m-3'>
+            <img className='w-8' src={logo} alt="logo"  />
+            <p className='mt-1 ml-3 font-[montserrat] font-semibold'>Pincity</p>
+        </div>
         <form className={formStyle}
         action="" method="" onSubmit={handleFormSubmission}>
                 <div><label htmlFor="Fname">First name: </label>
@@ -123,22 +129,22 @@ function SignUp(){
                         setConfirmPassword(e.target.value)
                     }}
                 /> </div>
-                <span className="mt-7">Already have an account  <Link className ="text-red-500" to='/'>Sign in</Link>
+                <span className="m-0 flex self-center gap-1 order-3 md:block md:self-auto md:mt-7 md:order-0">Already have an account  <Link className ="text-red-500" to='/'> Sign in</Link>
             </span>
                 
-                <button className="mt-0 bg-[#4F46E5] text-white border border-gray-500  rounded-sm w-50 self-center p-1" type="submit">Create Account</button>
+                <button className="mt-0 order-2 md:order-0 bg-[#4F46E5] text-white border border-gray-500  rounded-sm w-32 self-center p-1" type="submit">Create Account</button>
                 
-                
-                <div className={`absolute inset-0 m-auto mb-2 flex items-center justify-center transition-all duration-200 h-6 mb-1 text-red-500  p-0.5
-                 w-70 rounded-sm self-center ${errorMessage ? 'visible opacity-100 scale-100': 'invisible opacity-0 scale-95'}`}>
+                {/* absolute bottom-18  */}
+                <div className={`md:col-span-2 flex items-center md:justify-center transition-all duration-200 h-6 md:h-1 text-red-500 font-medium order-1 md:order-none ${errorMessage ? 'visible opacity-100 scale-100': 'invisible opacity-0 scale-95'}`}>
                     {errorMessage && (<p>{errorMessage}</p>)}
                 </div>
             
                 
             </form>
             </div>
-        <img className='h-dvh w-dvw scale-x-[-1]' src={leftimg} alt="" />
-
+            <div className='hidden md:block md:h-dvh md:w-dvw' >
+                <img className=' h-full w-full object-cover scale-x-[-1]' src={leftimg} alt="" />
+            </div>
     </div>
     )
 }

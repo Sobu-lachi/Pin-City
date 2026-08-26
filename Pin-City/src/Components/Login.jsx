@@ -51,22 +51,22 @@ function Login(){
 
 
     //CSS VARIABLES
-    const inputStyle = `my-2 h-8 w-70 rounded-lg  p-2 text-black outline-none transition-all duration-200
+    const inputStyle = `my-2 h-8 w-full max-w-xs rounded-lg  p-2 text-black outline-none transition-all duration-200
              focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600 shadow-xs
              shadow-black/50 `;
-    const formStyle = "absolute top-1/2 -translate-y-1/2 bg-white backdrop-blur-sm rounded-2xl p-5 pt-10 h-100 w-80 flex self-center justify-center flex-col shadow-lg shadow-black/50 text-sm"
+    const formStyle = "transition-all duration-200 absolute top-1/2 -translate-y-1/2 bg-white backdrop-blur-sm rounded-2xl p-5 pt-10 h-100 w-90 flex self-center justify-center flex-col shadow-lg shadow-black/50 md:text-sm"
        
 
     return(  
-        <div className='screen'>
+        <div className='min-h-screen w-full grid grid-cols-1 md:grid-cols-2 
+        bg-white md:gap-1'>
 
-            <img className='h-dvh w-dvw scale-x-[-1]' src={leftimg} alt="" />
+            <img className='h-0 md:h-dvh w-0 md:w-dvw md:scale-x-[-1]' src={leftimg} alt="" />
         
-
-        <div className='flex flex-col shadow-lg shadow-black bg-linear-to-br from-[#4F46E5]/30 to-white' >
-            <div className='flex m-3'>
+        <div className='flex flex-col h-dvh md:flex md:flex-col md:shadow-lg md:shadow-black bg-linear-to-br from-[#4F46E5]/30 to-white' >
+            <div className='transition-all duration-200 flex m-3'>
                 <img className='w-8' src={logo} alt="logo"  />
-                <p className='mt-1 ml-3 font-bold font-[montserrat]'>Pincity</p>
+                <p className='mt-1 ml-3 font-[montserrat] font-semibold'>Pincity</p>
             </div>
 
             <form className={formStyle} onSubmit={handleLogin} >
