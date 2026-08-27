@@ -4,7 +4,7 @@ import argon2 from 'argon2';
 
 const SignupRouter = express.Router()
 
-SignupRouter.post('/SignUp', async (req, res)=>{
+SignupRouter.post('/signup', async (req, res)=>{
     const {fName, lName, email, userName, password} = req.body.toUpp;
 
     try {

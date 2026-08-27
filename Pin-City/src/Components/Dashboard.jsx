@@ -50,7 +50,7 @@ function Dashboard(){
     useEffect(() => {
         async function loadData() {
           try {
-            const response = await api.get('/Dashboard');
+            const response = await api.get('/dashboard');
             const name = response.data.message;
 
             const formattedName =

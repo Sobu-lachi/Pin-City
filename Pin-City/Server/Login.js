@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken'
 
 const LoginFormRouter = express.Router();
 
-LoginFormRouter.post('/Login', async (req, res)=>{
+LoginFormRouter.post('/login', async (req, res)=>{
     const {email, password} = req.body;
     try{
         const sqlQuery = `SELECT * FROM users where email = $1`

@@ -1,10 +1,10 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'http://localhost:8000',
+    baseURL: '',
     withCredentials: true
 });
-// const authRoutes = ['/Login', '/SignUp'];
+// const authRoutes = ['/login', '/signup'];
 
 api.interceptors.response.use(
     (response) => {
@@ -17,13 +17,13 @@ api.interceptors.response.use(
 
         if (error.response?.status === 401 
             && !originalRequest._retry
-            && originalRequest.url !== '/Login'
-            && originalRequest.url !== '/SignUp') {
+            && originalRequest.url !== '/login'
+            && originalRequest.url !== '/signup') {
 
             try {
 
                 await axios.post(
-                    'http://localhost:8000/refresh',
+                    '/refresh',
                     {},
                     {
                         withCredentials: true

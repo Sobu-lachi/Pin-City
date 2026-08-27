@@ -11,6 +11,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "start": "node --env-file=Server/.env Server/index.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },
