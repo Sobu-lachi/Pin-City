@@ -10,7 +10,7 @@
   "main": "eslint.config.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm install --prefix Server && vite build",
     "start": "node --env-file=Server/.env Server/index.js",
     "lint": "eslint .",
     "preview": "vite preview"
