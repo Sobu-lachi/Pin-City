@@ -8,11 +8,19 @@ import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
 import pinRouter from './pin.js';
 import { pool } from './db.js';
-// import { verifyToken } from './Middlewares/dashboardAuth.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+// import 'dotenv/config';
 
-const PORT = process.env.PORT|| 8000;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const portNumber = process.env.PORT||8000;
 
 const app = express();
+
+app.use(express.static(path.join(__dirname, '../dist')));
+
 
 app.use(cors({
     origin: 'http://localhost:5173',
@@ -22,9 +30,6 @@ app.use(cors({
 app.use(express.json());
 
 app.use(cookieParser())
-
-// const pin = crypto.randomInt(100000, 1000000);
-// console.log(pin)
 
 // Code body
 
@@ -128,7 +133,10 @@ app.post('/logout', async (req, res) => {
     }
 });
 
+app.get('/*splat', (req, res) => {
+    res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
 
-app.listen(8000, ()=>{
-    console.log(`I am alive, runnning on port ${PORT}`)
+app.listen(portNumber, ()=>{
+    console.log(`I am alive, runnning on port ${portNumber}`)
 })

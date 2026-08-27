@@ -1,6 +1,5 @@
 import {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
-import '../ComCSS/Dashboard.css'
 import { MoonIcon, ArrowRightStartOnRectangleIcon, RectangleStackIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'; 
 import { useTheme} from './ThemeContext.jsx';
 import logo from '../assets/logo.png'
@@ -11,6 +10,7 @@ function Dashboard(){
     const [usersName, setUsersName] = useState('');
     const navigate = useNavigate();
     const {setBodyColor} = useTheme();
+    
     const [pin, setPin] = useState('*****')
     
     useEffect(()=>{

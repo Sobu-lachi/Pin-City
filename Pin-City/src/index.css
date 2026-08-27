@@ -2,10 +2,7 @@
 /* @custom-variant dark (&:where(.dark, .dark *)); */
 
 @layer components{
-    .screen {
-        @apply min-h-screen w-full flex flex-col md:flex-row items-center justify-center bg-gray-50
-        /*  */
-    }
+    
 
     
     

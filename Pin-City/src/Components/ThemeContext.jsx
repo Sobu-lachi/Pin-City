@@ -5,25 +5,15 @@ const appThemeContext = createContext();
 
 export function AppThemeProvider({children}){
     const [bodyColor, setBodyColor] = useState('#ffffff');
-    const [bodyImage, setBodyImage] = useState('');
 
 
     useEffect(()=>{
          document.body.style.backgroundColor = bodyColor;
-        if (bodyImage){
-        document.body.style.backgroundImage = `url('${bodyImage}')`;
-      document.body.style.backgroundSize = '500px';
-      document.body.style.backgroundPosition = 'center';
-      document.body.style.backgroundRepeat = 'no-repeat';
-    } else {
-      document.body.style.backgroundImage = '';
-    }
-
         document.body.style.transition = 'background-color 0.3s ease';
-    },[bodyColor, bodyImage]);
+    },[bodyColor]);
 
     return (
-        <appThemeContext.Provider value = {{setBodyColor, setBodyImage}}>{children}</appThemeContext.Provider>
+        <appThemeContext.Provider value = {{setBodyColor}}>{children}</appThemeContext.Provider>
     )
 }
 
