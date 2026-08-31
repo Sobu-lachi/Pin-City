@@ -1,7 +1,7 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import api from "./api.js";
-import leftimg from '../assets/left-visual.png'
+// import leftimg from '../assets/left-visual.png'
 import logo from '../assets/logo.png'
 
 function SignUp() {
@@ -71,7 +71,7 @@ function SignUp() {
             
             {/* Left Side: Visual Image Asset */}
             <div className="hidden md:block md:w-1/2 lg:w-5/12 h-screen sticky top-0 bg-indigo-900">
-                <img className="h-full w-full object-cover scale-x-[-1]" src={leftimg} alt="Sign up visual banner" />
+                <img className="h-full w-full object-cover scale-x-[-1]" src="/left-visual.png" alt="Sign up visual banner" />
             </div>
 
             {/* Right Side: Interactive Form Container */}
