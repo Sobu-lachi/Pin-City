@@ -10,6 +10,7 @@ import pinRouter from './pin.js';
 import { pool } from './db.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import compression from 'compression'
 // import 'dotenv/config';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -20,7 +21,7 @@ const portNumber = process.env.PORT||8000;
 const app = express();
 
 app.use(express.static(path.join(__dirname, '../dist')));
-
+app.use(compression());
 
 app.use(cors({
     origin: 'http://localhost:5173',
@@ -73,7 +74,7 @@ app.post('/refresh', async (req, res)=>{
 
          res.cookie('accessToken', newAccessToken, {
             httpOnly: true,
-            secure: false,
+            secure: true,
             sameSite: 'lax',
             maxAge: 15 * 60 * 1000
         });
@@ -108,13 +109,13 @@ app.post('/logout', async (req, res) => {
 
         res.clearCookie('accessToken',{
             httpOnly: true,
-            secure: false,
+            secure: true,
             sameSite: "lax",
             maxAge: 15 * 60 * 1000
         });
     res.clearCookie('refreshToken',{
             httpOnly: true,
-            secure: false,
+            secure: true,
             sameSite: "lax",
             maxAge: 15 * 60 * 1000
         });
