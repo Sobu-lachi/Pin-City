@@ -45,7 +45,7 @@ app.use('/', LoginFormRouter);
 //handles Dashboard data
 app.use('/', dashboardRouter);
 
-app.post('/refresh', async (req, res)=>{
+app.post('/api/refresh', async (req, res)=>{
     const refreshToken = req.cookies.refreshToken;
 // 'Please re-login'
     if (!refreshToken) return res.status(401).json({message : 'No refresh token provided'});
@@ -93,7 +93,7 @@ app.post('/refresh', async (req, res)=>{
 app.use('/', pinRouter)
 
 // verifyToken()
-app.post('/logout', async (req, res) => {
+app.post('/api/logout', async (req, res) => {
 
     const refreshToken = req.cookies.refreshToken;
 

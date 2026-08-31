@@ -4,7 +4,7 @@ import { pool } from './db.js';
 
 const dashboardRouter = express.Router();
 
-dashboardRouter.get('/dashboard', verifyToken, async (req, res) => {
+dashboardRouter.get('/api/dashboard', verifyToken, async (req, res) => {
     try{
         const result = await pool.query('SELECT first_name FROM users WHERE id = $1',
             [req.user.id]);

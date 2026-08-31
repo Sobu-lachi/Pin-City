@@ -41,7 +41,7 @@ function SignUp() {
         }
 
         try {
-            await api.post('/signup', {
+            await api.post('/api/signup', {
                 fName, lName, email, userName, password, confirmPassword
             });
             setFname('');

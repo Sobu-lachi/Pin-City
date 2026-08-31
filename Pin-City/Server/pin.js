@@ -5,7 +5,7 @@ import crypto from 'crypto';
 
 const pinRouter = express.Router();
 
-pinRouter.post('/generate-pin', verifyToken, async (req, res)=>{
+pinRouter.post('/api/generate-pin', verifyToken, async (req, res)=>{
 
     try{
         const userId = req.user.id;

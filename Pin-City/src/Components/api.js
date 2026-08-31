@@ -17,13 +17,13 @@ api.interceptors.response.use(
 
         if (error.response?.status === 401 
             && !originalRequest._retry
-            && originalRequest.url !== '/login'
-            && originalRequest.url !== '/signup') {
+            && originalRequest.url !== '/api/login'
+            && originalRequest.url !== '/api/signup') {
 
             try {
 
                 await axios.post(
-                    '/refresh',
+                    '/api/refresh',
                     {},
                     {
                         withCredentials: true

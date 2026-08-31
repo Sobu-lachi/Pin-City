@@ -37,7 +37,7 @@ function Dashboard(){
 
     async function pinGeneration() {
         try {
-            const response = await api.post('/generate-pin');
+            const response = await api.post('/api/generate-pin');
             setPin(response.data.pin)
         } catch (e) {
             if (e.response?.status === 409) {
@@ -50,7 +50,7 @@ function Dashboard(){
     useEffect(() => {
         async function loadData() {
           try {
-            const response = await api.get('/dashboard');
+            const response = await api.get('/api/dashboard');
             const name = response.data.message;
 
             const formattedName =
