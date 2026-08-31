@@ -145,3 +145,26 @@ export default function HomeCard() {
 
 
 //
+
+
+
+
+
+
+
+
+uewuURU8987KY6jdhey3sdfhkhkga778878963ywgydshosisu
+
+jdhdsjsdy\7w4839pE338q38uO8[t417iq7lG]dzsAk7251f5td3
+
+node Server/index.js
+
+
+NODE_ENV=production
+DB_USERNAME=${{Postgres.PGUSER}}
+DB_PASSWORD=${{Postgres.PGPASSWORD}}
+DB_HOST=${{Postgres.PGHOST}}
+DB_NAME=${{Postgres.PGDATABASE}}
+DB_PORT=${{Postgres.PGPORT}}
+JWT_SECRET_TOKEN=YOUR_EXISTING_JWT_SECRET
+JWT_REFRESH_SECRET=YOUR_EXISTING_REFRESH_SECRET
