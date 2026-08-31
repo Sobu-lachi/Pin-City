@@ -28,7 +28,7 @@ function Dashboard(){
 
     async function logout(){
         try{
-            await api.post('/logout');
+            await api.post('/api/logout');
             navigate('/')
         }catch(e){
             console.log(e)
