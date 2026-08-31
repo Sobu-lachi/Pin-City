@@ -10,7 +10,7 @@ import pinRouter from './pin.js';
 import { pool } from './db.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import compression from 'compression'
+import compression from 'compression';
 // import 'dotenv/config';
 
 const __filename = fileURLToPath(import.meta.url);
