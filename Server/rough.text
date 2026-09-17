@@ -1,0 +1,170 @@
+//Login credentials
+
+{
+  "email": "me@gmail.com",
+  "password": "me"
+}
+
+//Signup credentials
+{
+    "fName": "me", 
+    "lName": "me", 
+    "email": "me@gmail.com", 
+    "userName": "me",
+    "password": "me"
+}
+
+//
+authRouter.post('/logout', async (req, res) => {
+    const refreshToken = req.cookies.refreshToken;
+
+    try {
+        // 1. Delete the token record from PostgreSQL so it can never be used to refresh again
+        if (refreshToken) {
+            await pool.query('DELETE FROM user_sessions WHERE token = $1', [refreshToken]);
+        }
+
+        // 2. Clear the HttpOnly cookie out of the browser completely
+        res.clearCookie('refreshToken');
+
+        res.json({ message: "Logged out from this device successfully!" });
+    } catch (error) {
+        res.status(500).json({ message: "Error logging out." });
+    }
+});
+
+
+//
+
+async function handleLogout() {
+    try {
+        // 1. Hit the backend logout endpoint (Axios automatically sends the cookie via withCredentials)
+        await api.post('/logout'); 
+        
+        // 2. Wipe the access token out of local memory storage
+        localStorage.removeItem('accessToken');
+
+        // 3. Kick them out to the login screen
+        navigate('/');
+    } catch (err) {
+        console.error("Logout failed:", err);
+    }
+}
+
+
+
+
+//Css for dark theme
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+// ThemeContext.jsx
+import { createContext, useContext, useEffect, useState } from 'react';
+
+const ThemeContext = createContext();
+
+export function ThemeProvider({ children }) {
+  // Check localStorage, default to 'light' if empty
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'light';
+  });
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    
+    if (theme === 'dark') {
+      root.classList.add('dark'); // Tailwind picks this up!
+    } else {
+      root.classList.remove('dark');
+    }
+    
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+export const useTheme = () => useContext(ThemeContext);
+
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import { ThemeProvider } from './ThemeContext.jsx';
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
+  </React.StrictMode>
+);
+
+
+import { useTheme } from './ThemeContext';
+
+export default function HomeCard() {
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    // Light mode layout defaults, Dark mode overrides via dark:
+    <div className="min-h-screen bg-slate-50 text-slate-900 p-8 transition-colors duration-300
+                    dark:bg-slate-950 dark:text-slate-50">
+      
+      <div className="max-w-md mx-auto bg-white border border-slate-200 p-6 rounded-xl shadow-sm
+                      dark:bg-slate-900 dark:border-slate-800">
+        <h1 className="text-2xl font-bold">Theme Controller</h1>
+        <p className="text-slate-500 dark:text-slate-400 mt-2">
+          Current Theme: <span className="font-semibold capitalize">{theme}</span>
+        </p>
+        
+        <button 
+          onClick={toggleTheme}
+          className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 active:scale-95 transition-all"
+        >
+          Toggle Theme
+        </button>
+      </div>
+    </div>
+  );
+}
+
+
+<button className='handleMenu' onClick={handleHamburger} aria-label="Open navigation menu">
+                <FaBars/>
+            </button>
+
+
+//
+
+
+
+
+
+
+
+
+uewuURU8987KY6jdhey3sdfhkhkga778878963ywgydshosisu
+
+jdhdsjsdy\7w4839pE338q38uO8[t417iq7lG]dzsAk7251f5td3
+
+node Server/index.js
+
+
+NODE_ENV=production
+DB_USERNAME=${{Postgres.PGUSER}}
+DB_PASSWORD=${{Postgres.PGPASSWORD}}
+DB_HOST=${{Postgres.PGHOST}}
+DB_NAME=${{Postgres.PGDATABASE}}
+DB_PORT=${{Postgres.PGPORT}}
+JWT_SECRET_TOKEN=YOUR_EXISTING_JWT_SECRET
+JWT_REFRESH_SECRET=YOUR_EXISTING_REFRESH_SECRET
